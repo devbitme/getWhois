@@ -27,6 +27,7 @@
 		"@tailwindcss/vite": "^4.1.8",
 		"@tsconfig/svelte": "^5.0.4",
 		"@wxt-dev/module-svelte": "^2.0.3",
+		"@zerodevx/svelte-json-view": "^1.0.11",
 		"melt": "^0.34.0",
 		"prettier": "^3.5.3",
 		"prettier-plugin-svelte": "^3.4.0",
