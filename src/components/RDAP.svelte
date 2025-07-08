@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { getInfosRDAP } from "../lib/services";
 	import { rdapData } from "../stores/whoisStore";
+	import { JsonView } from "@zerodevx/svelte-json-view";
 
 	interface RDAPData {
 		[server: string]: {
@@ -10,12 +11,12 @@
 
 	let { domain } = $props<{ domain: string }>();
 
-	let rdap = $state<RDAPData | null>(null);
+	let json = $state<RDAPData | null>(null);
 
 	// Subscribe to the store
 	$effect(() => {
 		const unsubscribe = rdapData.subscribe((value) => {
-			rdap = value;
+			json = value;
 		});
 		return unsubscribe;
 	});
@@ -34,19 +35,27 @@
 				});
 		}
 	});
-
-	function openJsonInNewTab(data: RDAPData) {
-		window.open("newTab.html?type=whois", "_blank");
-	}
 </script>
 
-{#if rdap}
-	<button
-		onclick={() => openJsonInNewTab(rdap as RDAPData)}
-		class="font-inherit mb-2 cursor-pointer border-none bg-transparent p-0 text-blue-500 underline"
-	>
-		Voir JSON
-	</button>
-{:else}
-	<div>Loading...</div>
-{/if}
+<div class="wrap">
+	{#if json}
+		<JsonView {json} />
+	{:else}
+		<div>No RDAP data available...</div>
+	{/if}
+</div>
+
+<style>
+	/* https://www.npmjs.com/package/@zerodevx/svelte-json-view */
+	.wrap {
+		font-family: Consolas, monospace;
+		font-size: .8rem;
+		--jsonPaddingLeft: 2rem;
+		/* --jsonSeparatorColor: #0074e8; */
+		--jsonValColor: #5c5c5f;
+		--jsonValStringColor: #dd00a9;
+		--jsonKeyColor: #0074e8;
+		--jsonValNumberColor: #058b00;
+		--jsonValBooleanColor: #058b00;
+	}
+</style>

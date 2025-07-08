@@ -2,6 +2,7 @@
 	import { onMount } from "svelte";
 	import { Tabs } from "melt/builders";
 	import Whois from "~/components/Whois.svelte";
+	import RDAP from "~/components/RDAP.svelte";
 
 	const tabIds = ["WHOIS", "RDAP"];
 
@@ -67,7 +68,7 @@
 					<Whois domain={domain || ""} />
 				{:else if id === "RDAP"}
 					<h2 class="text-xl font-bold">RDAP Information for {domain}</h2>
-					<!-- <RDAP domain={domain} /> -->
+					<RDAP domain={domain || ""} />
 				{/if}
 			</div>
 		{/each}
