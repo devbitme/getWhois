@@ -39,17 +39,17 @@
 	});
 </script>
 
-<main class="container mx-auto p-4 min-h-screen">
+<main class="container mx-auto min-h-screen p-4">
 	<h1 class="sr-only">Get Whois</h1>
 
 	<div class="text-center text-xl text-red-800 select-none">°˖✧◝(⁰▿⁰)◜✧˖°</div>
 
-	<nav class="flex justify-center gap-4 p-2">
-		<section id="nav-whois" {...tabs.triggerList} class="">
+	<nav class="flex justify-center gap-4 p-2 mt-4">
+		<section id="nav-whois" {...tabs.triggerList} class="rounded bg-red-100 ring-1 ring-red-800 ring-offset-2 cursor-pointer">
 			{#each tabIds as id}
 				<button
 					{...tabs.getTrigger(id)}
-					class="cursor-pointer rounded border-1 border-white px-1 py-0 transition-colors hover:bg-red-200 hover:text-red-800 focus:ring-1 focus:ring-red-300 focus:ring-offset-1 focus:outline-0 aria-selected:text-green-600"
+					class="cursor-pointer px-1 py-0 text-red-800 transition-colors first:rounded-l last:rounded-r hover:bg-red-200 focus:outline-0 aria-selected:bg-red-800 aria-selected:text-red-100"
 				>
 					{id}
 				</button>
@@ -75,7 +75,7 @@
 	</div>
 </main>
 
-<footer class="sticky bottom-2 flex justify-end gap-1 text-[.6rem] text-red-700 select-none px-4">
+<footer class="sticky bottom-2 flex justify-end gap-1 px-4 text-[.6rem] text-red-700 select-none">
 	<a
 		class="transition-opacity hover:opacity-75 focus:outline-0"
 		href="https://devbit.me"
