@@ -42,23 +42,23 @@
 <main class="container mx-auto min-h-screen p-4">
 	<h1 class="sr-only">Get Whois</h1>
 
-	<div class="text-center text-xl text-red-800 select-none">°˖✧◝(⁰▿⁰)◜✧˖°</div>
+	<div class="text-center text-xl text-pink-800 select-none">°˖✧◝(⁰▿⁰)◜✧˖°</div>
 
 	<nav class="flex justify-center gap-4 p-2 mt-4">
-		<section id="nav-whois" {...tabs.triggerList} class="relative flex rounded bg-red-100 ring-1 ring-red-800 ring-offset-2 cursor-pointer min-w-fit">
-			<div class="absolute inset-y-0 left-0 w-1/2 bg-red-800 rounded transition-transform duration-300 ease-in-out {currentRecordType === 'RDAP' ? 'translate-x-full' : 'translate-x-0'}"></div>
+		<section id="nav-whois" {...tabs.triggerList} class="relative flex rounded bg-pink-100 ring-1 ring-pink-800 ring-offset-2 cursor-pointer min-w-fit">
+			<div class="absolute inset-y-0 left-0 w-1/2 bg-pink-800 rounded transition-transform duration-300 ease-in-out {currentRecordType === 'RDAP' ? 'translate-x-full' : 'translate-x-0'}"></div>
 			
 			{#each tabIds as id}
 				<button
 					{...tabs.getTrigger(id)}
-					class="relative z-10 flex-1 cursor-pointer px-3 py-1 text-red-800 text-sm transition-colors first:rounded-l last:rounded-r hover:bg-transparent focus:outline-0 aria-selected:text-red-100 text-center min-w-18"
+					class="relative z-10 flex-1 cursor-pointer px-2 py-1 text-pink-800 text-xs transition-colors first:rounded-l last:rounded-r hover:bg-transparent focus:outline-0 aria-selected:text-pink-100 text-center min-w-16"
 				>
 					{id}
 				</button>
 			{/each}
 		</section>
 	</nav>
-	<div class="tools mb-4 flex justify-center gap-4 border-b-2 border-red-800 p-2">
+	<div class="tools mb-4 flex justify-center gap-4 border-b-1 border-pink-800 p-2">
 		<button class="cursor-pointer">Copy to Clipboard</button>
 		<button>Download</button>
 	</div>
@@ -77,7 +77,7 @@
 	</div>
 </main>
 
-<footer class="sticky bottom-2 flex justify-end gap-1 px-4 text-[.6rem] text-red-700 select-none">
+<footer class="sticky bottom-2 flex justify-end gap-1 px-4 text-[.6rem] text-pink-700 select-none">
 	<a
 		class="transition-opacity hover:opacity-75 focus:outline-0"
 		href="https://devbit.me"
