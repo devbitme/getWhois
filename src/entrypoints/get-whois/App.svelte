@@ -45,11 +45,13 @@
 	<div class="text-center text-xl text-red-800 select-none">°˖✧◝(⁰▿⁰)◜✧˖°</div>
 
 	<nav class="flex justify-center gap-4 p-2 mt-4">
-		<section id="nav-whois" {...tabs.triggerList} class="rounded bg-red-100 ring-1 ring-red-800 ring-offset-2 cursor-pointer">
+		<section id="nav-whois" {...tabs.triggerList} class="relative flex rounded bg-red-100 ring-1 ring-red-800 ring-offset-2 cursor-pointer min-w-fit">
+			<div class="absolute inset-y-0 left-0 w-1/2 bg-red-800 rounded transition-transform duration-300 ease-in-out {currentRecordType === 'RDAP' ? 'translate-x-full' : 'translate-x-0'}"></div>
+			
 			{#each tabIds as id}
 				<button
 					{...tabs.getTrigger(id)}
-					class="cursor-pointer px-1 py-0 text-red-800 transition-colors first:rounded-l last:rounded-r hover:bg-red-200 focus:outline-0 aria-selected:bg-red-800 aria-selected:text-red-100"
+					class="relative z-10 flex-1 cursor-pointer px-3 py-1 text-red-800 text-sm transition-colors first:rounded-l last:rounded-r hover:bg-transparent focus:outline-0 aria-selected:text-red-100 text-center min-w-18"
 				>
 					{id}
 				</button>
