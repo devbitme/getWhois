@@ -3,6 +3,7 @@
 	import { Tabs } from "melt/builders";
 	import Whois from "~/components/Whois.svelte";
 	import RDAP from "~/components/RDAP.svelte";
+	import { downloadData, loadStoredData } from "~/stores/whoisStore";
 
 	const tabIds = ["WHOIS", "RDAP"];
 
@@ -25,6 +26,9 @@
 			domain = urlParams.get("domain");
 		}
 
+		// Load stored data from localStorage
+		loadStoredData();
+
 		// Fetch initial DNS record (A record)
 		currentRecordType = tabIds[0];
 
@@ -37,6 +41,13 @@
 			}, 600);
 		}
 	});
+
+	// Function to handle download
+	function handleDownload() {
+		if (domain) {
+			downloadData(currentRecordType, domain);
+		}
+	}
 </script>
 
 <main class="container mx-auto min-h-screen p-4">
@@ -60,7 +71,7 @@
 	</nav>
 	<div class="tools mb-4 flex justify-center gap-4 border-b-1 border-pink-800 p-2">
 		<button class="cursor-pointer">Copy to Clipboard</button>
-		<button>Download</button>
+		<button class="cursor-pointer" onclick={handleDownload}>Download</button>
 	</div>
 	<div class="content max-h-min flex-1 overflow-y-auto">
 		{#each tabIds as id}
