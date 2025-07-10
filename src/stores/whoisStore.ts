@@ -40,6 +40,22 @@ export function downloadData(recordType: string, domain: string) {
     URL.revokeObjectURL(url);
 }
 
+// Function to copy data to clipboard
+export async function copyData(recordType: string): Promise<boolean> {
+    const storageKey = recordType === 'WHOIS' ? 'whoisData' : 'rdapData';
+    const data = localStorage.getItem(storageKey);
+    
+    if (!data) return false;
+    
+    try {
+        await navigator.clipboard.writeText(data);
+        return true;
+    } catch (err) {
+        console.error('Failed to copy to clipboard:', err);
+        return false;
+    }
+}
+
 // Function to load data from localStorage on app start
 export function loadStoredData() {
     const storedWhoisData = localStorage.getItem('whoisData');
