@@ -7,7 +7,7 @@ export const currentRecordType = writable('WHOIS');
 export const currentDomain = writable('');
 
 // Create store for data whois with localStorage persistence
-export const whoisData = writable<any>(null);
+export const whoisData = writable<Record<string, any>>({});
 whoisData.subscribe(value => {
     if (value) {
         localStorage.setItem('whoisData', JSON.stringify(value));
@@ -15,7 +15,7 @@ whoisData.subscribe(value => {
 });
 
 // Create store for data rdap with localStorage persistence
-export const rdapData = writable<any>(null);
+export const rdapData = writable<Record<string, any>>({});
 rdapData.subscribe(value => {
     if (value) {
         localStorage.setItem('rdapData', JSON.stringify(value));

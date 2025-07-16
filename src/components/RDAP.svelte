@@ -1,47 +1,40 @@
 <script lang="ts">
 	import { getInfosRDAP } from "../lib/services";
 	import { rdapData } from "../stores/whoisStore";
+	import { isValidDomain } from "../lib/utils";
 	import { JsonView } from "@zerodevx/svelte-json-view";
 
-	interface RDAPData {
-		[server: string]: {
-			[key: string]: string | string[] | number | boolean | null;
-		};
-	}
-
 	let { domain } = $props<{ domain: string }>();
+	let loading = $state<boolean>(false);
 
-	let json = $state<RDAPData | null>(null);
-
-	// Subscribe to the store
 	$effect(() => {
-		const unsubscribe = rdapData.subscribe((value) => {
-			json = value;
-		});
-		return unsubscribe;
-	});
-
-	// Load RDAP data when component mounts or domain changes
-	$effect(() => {
-		if (domain) {
+		if (domain && isValidDomain(domain)) {
+			loading = true;
 			getInfosRDAP(domain)
 				.then((data) => {
-					// store data in the store
-					rdapData.set(data);
+					if (data) {
+						$rdapData = data;
+					} else {
+						$rdapData = {};
+					}
+					loading = false;
 				})
 				.catch((error) => {
-					console.error("Error fetching RDAP data:", error);
-					rdapData.set(null);
+					$rdapData = {};
+					loading = false;
 				});
+		} else {
+			$rdapData = {};
+			loading = false;
 		}
 	});
 </script>
 
 <div class="wrap">
-	{#if json}
-		<JsonView {json} />
+	{#if $rdapData && Object.keys($rdapData).length > 0}
+		<JsonView json={$rdapData} />
 	{:else}
-		<div>No RDAP data available...</div>
+		<div>{@html loading ? "Loading data..." : `No RDAP data available...<br />Check the <a class="cursor-pointer transition-colors text-pink-600 hover:text-pink-800" href="https://deployment.rdap.org/" target="_blank">deployment dashboard</a>, perhaps your domain name is not yet supported...`}</div>
 	{/if}
 </div>
 

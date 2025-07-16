@@ -1,46 +1,40 @@
 <script lang="ts">
 	import { getInfosWhois } from "../lib/services";
 	import { whoisData } from "../stores/whoisStore";
+	import { isValidDomain } from "../lib/utils";
 	import { JsonView } from "@zerodevx/svelte-json-view";
 
-	interface WhoisData {
-		[server: string]: {
-			[key: string]: string | string[] | number | boolean | null;
-		};
-	}
-
 	let { domain } = $props<{ domain: string }>();
+	let loading = $state<boolean>(false);
 
-	let json = $state<WhoisData | null>(null);
-
-	// Subscribe to the store
 	$effect(() => {
-		const unsubscribe = whoisData.subscribe((value) => {
-			json = value;
-		});
-		return unsubscribe;
-	});
-
-	// Load WHOIS data when component mounts or domain changes
-	$effect(() => {
-		if (domain) {
+		if (domain && isValidDomain(domain)) {
+			loading = true;
 			getInfosWhois(domain)
 				.then((data) => {
-					// store data in the store
-					whoisData.set(data);
+					if (data) {
+						$whoisData = data;
+					} else {
+						$whoisData = {};
+					}
+					loading = false;
 				})
 				.catch((error) => {
-					console.log("Error fetching WHOIS data:", error);
+					$whoisData = {};
+					loading = false;
 				});
+		} else {
+			$whoisData = {};
+			loading = false;
 		}
 	});
 </script>
 
 <div class="wrap">
-	{#if json}
-		<JsonView {json} />
+	{#if $whoisData && Object.keys($whoisData).length > 0}
+		<JsonView json={$whoisData} />
 	{:else}
-		<div>No WHOIS data available...</div>
+		<div>{loading ? "Loading data..." : "No WHOIS data available..."}</div>
 	{/if}
 </div>
 
