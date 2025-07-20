@@ -9,6 +9,6 @@
 		currentDomain.set(domain);
 
 		const url = browser.runtime.getURL(`/get-whois.html?domain=${domain}`);	
-		window.open(url, "_blank");
+		browser.tabs.create({ url: url });
 	});
 </script>

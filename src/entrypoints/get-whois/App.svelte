@@ -166,7 +166,7 @@
 			href="https://github.com/devbitme/getWhois/releases"
 			target="_blank"
 			rel="noopener noreferrer"
-			title="Releases">1.0.0</a
+			title="Releases">1.0.3</a
 		>
 	</div>
 </footer>

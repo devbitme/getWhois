@@ -10,5 +10,11 @@ export default defineConfig({
 	}),
 	manifest: {
 		permissions: ["clipboardWrite", "tabs", "<all_urls>"],
+		web_accessible_resources: [
+			{
+				resources: ["get-whois.html"],
+				matches: ["<all_urls>"]
+			}
+		]
 	}
 });

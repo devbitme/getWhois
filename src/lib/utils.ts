@@ -23,14 +23,13 @@ export const isValidDomain = (domain: string): boolean => {
 // Get domain from current tab
 export const getCurrentTabDomain = async () => {
     try {
-        const tabs = await browser.tabs.query({
-            currentWindow: true,
-            active: true
-        });
-
-        if (tabs.length > 0 && tabs[0].url) {
-            return new URL(tabs[0].url).hostname.replace("www.", "");
+        const [tab] = await browser.tabs.query({ currentWindow: true, active: true });
+        
+        if (tab?.url) {
+            const hostname = new URL(tab.url).hostname.replace(/^www\./, "");
+            return hostname.split(".").slice(-2).join(".");
         }
+        
         return "example.com";
     } catch (error) {
         console.error("Error getting current tab domain:", error);
